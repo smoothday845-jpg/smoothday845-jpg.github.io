@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Smooth Success Club Signup</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --accent:#ffffff;
+      --bg-overlay: rgba(0,0,0,0.45);
+      --radius:10px;
+    }
+    *{box-sizing:border-box;}
+    html {scroll-behavior:smooth;}
+    body,html {
+      margin:0;
+      padding:0;
+      font-family:'Poppins', system-ui,-apple-system,sans-serif;
+      color: #fff;
+      background:#000;
+    }
+    .slide {
+      position: relative;
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      text-align:center;
+      padding:60px 20px;
+      background-size:cover;
+      background-position:center;
+      transition: background 0.5s ease;
+    }
+    .slide::before {
+      content:"";
+      position:absolute;
+      inset:0;
+      background: var(--bg-overlay);
+      pointer-events:none;
+      mix-blend-mode: normal;
+    }
+    .content {
+      position: relative;
+      max-width:800px;
+      z-index:1;
+      padding:0 10px;
+    }
+    h2 {
+      margin:0 0 15px;
+      font-size:2.8rem;
+      line-height:1.1;
+      font-weight:700;
+      text-shadow:0 8px 20px rgba(0,0,0,0.6);
+    }
+    p {
+      margin:0 auto 25px;
+      font-size:1.1rem;
+      line-height:1.6;
+      max-width:700px;
+      text-shadow:0 4px 12px rgba(0,0,0,0.5);
+    }
+    .btn {
+      display:inline-block;
+      padding:14px 32px;
+      font-size:1rem;
+      font-weight:600;
+      border:none;
+      border-radius:var(--radius);
+      background:#fff;
+      color:#111;
+      cursor:pointer;
+      text-decoration:none;
+      transition:transform .2s ease, filter .2s ease;
+      position:relative;
+      z-index:2;
+    }
+    .btn:hover {transform:translateY(-2px); filter:brightness(1.05);}
+    .progress {
+        position: fixed;
+        top: 50%;
+        left: 20px;
+        transform: translateY(-50%);
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        z-index: 10;
+    }
+
+    .dot {
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.3);
+        transition: background .3s ease, transform .2s ease;
+    }
+
+    .dot.active {
+        background: #fff;
+        box-shadow: 0 0 14px rgba(255,255,255,0.9);
+        transform: scale(1.2);
+    }
+
+    /* Email form */
+    .signup-form {
+      display:flex;
+      flex-direction:column;
+      gap:15px;
+      margin-top:10px;
+      max-width:480px;
+      width:100%;
+    }
+    .signup-form input[type=email] {
+      padding:14px 16px;
+      font-size:1rem;
+      border-radius:8px;
+      border: none;
+      outline:none;
+    }
+    .small {
+      font-size:0.9rem;
+      opacity:0.85;
+    }
+    /* subtle animation for reveal */
+    .fade-in {
+      opacity:0;
+      transform:translateY(10px);
+      animation:appear .8s forwards;
+    }
+    @keyframes appear {
+      to {opacity:1; transform:translateY(0);}
+    }
+    /* Optional toned-down variant */
+    .tone-subtle h2 {font-weight:500;}
+    .tone-subtle .btn {background:rgba(255,255,255,0.9);}
+  </style>
+</head>
+<body>
+
+  <!-- progress indicator -->
+  <div class="progress" aria-label="signup progression">
+    <div class="dot active" data-target="slide1" aria-label="Step 1"></div>
+    <div class="dot" data-target="slide2" aria-label="Step 2"></div>
+    <div class="dot" data-target="slide3" aria-label="Step 3"></div>
+    <div class="dot" data-target="slide4" aria-label="Final Step"></div>
+  </div>
+
+  <!-- Slide 1: Invitation -->
+  <section id="slide1" class="slide" style="background-image:url('uploads/slide1.jpg');" aria-label="Invitation to join">
+    <div class="content fade-in">
+      <h2>Are you ready to uncover what “smooth success” really means?</h2>
+      <p>This isn’t the usual sign-up. No rush. Just curiosity. Do you want to continue?</p>
+      <a href="#slide2" class="btn" data-next="slide2">Yes, take me deeper</a>
+    </div>
+  </section>
+
+  <!-- Slide 2: Truth / Normalization -->
+  <section id="slide2" class="slide" style="background-image:url('uploads/slide2.jpg');" aria-label="Normalization of the truth">
+    <div class="content fade-in">
+      <h2>What do we do?</h2>
+      <p>Human well-being shows up in the little things, how you breathe, what you take in, what you let go of, and how you recover...
+         Here, we keep it real about basics. We observe and we celebrate.</p>
+      <a href="#slide3" class="btn" data-next="slide3">I understand</a>
+    </div>
+  </section>
+
+  <!-- Slide 3: Commitment -->
+  <section id="slide3" class="slide" style="background-image:url('uploads/slide3.jpg');" aria-label="Commitment question">
+    <div class="content fade-in">
+      <h2>Are you willing to track and reflect?</h2>
+      <p>We just keep it real — laugh at the awkward stuff, record the everyday moments, and talk about the wins most people don't mention.
+         Yeah... the bathroom ones. Smooth, regular, and totally worth celebrating.
+      </p>
+      <a href="#slide4" class="btn" data-next="slide4">I’m in</a>
+    </div>
+  </section>
+
+  <!-- Final Slide: Email Signup -->
+  <section id="slide4" class="slide" style="background-image:url('uploads/slide4.jpg');" aria-label="Signup form">
+    <div class="content fade-in" style="max-width: 700px; margin: 0 auto; display: flex; flex-direction: column; gap: 24px;">
+      <h2 style="margin-top:0;">Welcome to the Inner Circle</h2>
+  
+      <div style="display: flex; flex-direction: column; gap: 12px; font-size: 1.05rem;">
+        <p style="margin:0;">
+          Alright, the secret is out — we're here for smooth, satisfying, regular poops, and the good vibes that come with them.  
+          We're a bunch of wonderful friends sharing our digestive wins, exchanging tips, and cheering each other on in every way—beyond the bathroom.
+        </p>
+        <p style="margin:0;">
+          Drop your email in and we'll send you friendly check-ins and ideas to help you keep things moving smoothly.
+        </p>
+      </div>
+  
+      <!-- Example: hooking up to a real mailing list via Formspree -->
+      <form class="signup-form" aria-label="Email signup" 
+            action="https://formspree.io/f/yourFormID" method="POST"
+            style="display: flex; flex-direction: column; gap: 16px; width:100%; max-width:480px;">
+        <label for="email" class="small" style="text-align:left;">Email address</label>
+        <input type="email" id="email" name="email" placeholder="you@example.com" required aria-required="true" 
+               style="padding:14px 16px; font-size:1rem; border-radius:8px; border:none; outline:none; width:100%;" />
+        <button type="submit" class="btn" style="width:100%;">Join the Club</button>
+        <p class="small" style="margin:0;">We respect your privacy. No spam. You can unsubscribe anytime.</p>
+      </form>
+  
+      <div style="margin-top:10px;">
+        <a href="club_mem.html" class="btn" style="background:rgba(255,255,255,0.85); color:#111; display:inline-block;">Enter Member Portal</a>
+      </div>
+    </div>
+  </section>
+  
+
+  <script>
+    // sync progress dots on scroll / anchor click
+    const sections = ['slide1','slide2','slide3','slide4'];
+    const dots = document.querySelectorAll('.dot');
+
+    function setActive(id) {
+      dots.forEach(d => d.classList.toggle('active', d.dataset.target === id));
+    }
+
+    // click on next buttons updates indicator
+    document.querySelectorAll('[data-next]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const target = btn.getAttribute('data-next');
+        setTimeout(() => { setActive(target); }, 100);
+      });
+    });
+
+    // update on hash change (back/forward)
+    window.addEventListener('hashchange', () => {
+      const hash = location.hash.replace('#','') || 'slide1';
+      if (sections.includes(hash)) setActive(hash);
+    });
+
+    // on load, reflect current hash
+    document.addEventListener('DOMContentLoaded', () => {
+      const hash = location.hash.replace('#','') || 'slide1';
+      if (sections.includes(hash)) setActive(hash);
+    });
+
+    // smooth scroll adjustment for accessibility
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        e.preventDefault();
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({behavior:'smooth'});
+          history.replaceState(null,'',a.getAttribute('href'));
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>

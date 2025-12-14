@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Success Club Member Portal</title>
+  <link rel="stylesheet" href="../css/bootstrap.min.css" />
+  <link rel="stylesheet" href="../style.css" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap');
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #3d2b0afb;
+      color: rgb(240, 229, 195);
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      background-color: #3d2b0afb;
+      z-index: 1000;
+      padding: 30px 12% 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5em;
+      margin: 0;
+      color: rgb(240, 229, 195);
+    }
+
+    .tab-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      justify-content: center;
+      padding: 10px 12% 20px;
+      background-color: #3d2b0afb;
+      position: sticky;
+      top: 90px;
+      z-index: 999;
+    }
+
+    .tab-buttons button {
+      padding: 5px 28px;
+      border: 2px solid #ccc;
+      background-color: rgb(238, 231, 217);
+      color: black;
+      border-radius: 40px;
+      cursor: pointer;
+      font-size: 1.1em;
+      transition: all 0.3s ease;
+      font-weight: 500;
+    }
+
+    .tab-buttons button:hover {
+      border-color: #111;
+      color: #111;
+    }
+
+    .tab-buttons button.active {
+      background-color: #111;
+      color: rgb(240, 229, 195);
+      border-color: #111;
+    }
+
+    .tabs-container {
+      padding: 40px 12% 80px;
+      max-width: 1500px;
+      margin: auto;
+    }
+
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.5s ease;
+      padding: 20px;
+      background-color: rgb(238, 231, 217);
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.05);
+      color: #111;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .tab-content h3 {
+      font-size: 1.8em;
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+
+        /* Advice / Tips Layout */
+    .guide-layout {
+      display: flex;
+      align-items: flex-start;
+      gap: 40px;
+      margin-top: 20px;
+    }
+
+    /* Left Sidebar */
+    .guide-sidebar {
+      position: sticky;
+      top: 140px; /* stays fixed while scrolling */
+      min-width: 160px;
+    }
+
+    .guide-sidebar ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .guide-sidebar li {
+      margin-bottom: 14px;
+    }
+
+    .guide-sidebar a {
+      display: block;
+      padding: 8px 12px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 500;
+      color: #111;
+      background: rgba(255,255,255,0.7);
+      transition: background 0.2s ease;
+    }
+
+    .guide-sidebar a:hover {
+      background: rgba(0,0,0,0.1);
+    }
+
+    /* Right Main */
+    .guide-main {
+      flex: 1;
+      max-width: 900px;
+    }
+
+    .guide-main h4 {
+      margin-top: 50px;
+      font-size: 1.5em;
+      border-bottom: 2px solid rgba(0,0,0,0.1);
+      padding-bottom: 6px;
+    }
+
+    /* Tip Cards */
+    .tip-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .tip-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 16px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+      text-align: center;
+      color: #111;
+      transition: transform 0.2s ease;
+    }
+
+    .tip-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .tip-card img {
+      width: 100%;
+      max-height: 140px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 12px;
+    }
+
+    .tip-card h5 {
+      margin: 6px 0;
+      font-size: 1.1em;
+      font-weight: 600;
+    }
+
+    .tip-card p {
+      font-size: 0.95em;
+      color: #444;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Fixed Header -->
+  <header>
+    <h1>
+        <a href="#" id="welcome-link" style="text-decoration: none; color: inherit;font-size: 1.5em;">
+        Welcome to the Success Club
+        </a>
+    </h1>
+    <p style="margin-top: 10px; font-size: 1.1em;">Your digestive journey starts here 💩✨</p>
+  </header>
+
+  <!-- Fixed Buttons -->
+  <div class="tab-buttons">
+    <button class="tab-btn" data-tab="theory">Theory</button>
+    <button class="tab-btn" data-tab="guide">Guidance</button>
+    <button class="tab-btn" data-tab="community">Community</button>
+    <button class="tab-btn" data-tab="publicize">Merch</button>
+    <button class="tab-btn" data-tab="events">Upcoming Events</button>
+  </div>
+
+  <!-- Content Area -->
+  <section class="tabs-container">
+
+    <div id="welcome" class="tab-content active">
+      <!-- <h2 style="text-align: center; font-size: 2.0em;">🎉 Welcome to the Success Club</h2> -->
+      <p style="text-align: center; max-width: 700px; margin: 20px auto; font-size: 1.2em;">
+        We are a group of curious, passionate, and slightly chaotic minds sharing experiences and laughs 💩✨
+      </p>
+    </div>
+
+    <div id="theory" class="tab-content">
+      <h3>Theory Development</h3>
+      <p>Will have to be advised by YF with her expertise.</p>
+      <p>
+        Xuyang's SNP theory 
+      </p>
+    </div>
+
+    <div id="guide" class="tab-content">
+      <h3 style="text-align:center;">Advice / Tips</h3>
+    
+      <div class="guide-layout">
+        <!-- Left Navigation -->
+        <nav class="guide-sidebar">
+          <ul>
+            <li><a href="#food">🍉 Food</a></li>
+            <li><a href="#drink">🥤 Drink</a></li>
+            <li><a href="#gestures">🧘 Gestures</a></li>
+          </ul>
+        </nav>
+    
+        <!-- Right Main Content -->
+        <div class="guide-main">
+          <section id="food">
+            <h4>Food</h4>
+            <p>
+              Generally, fibers are super helpful!
+            </p>
+            <div class="tip-grid">
+              <div class="tip-card">
+                <img src="../uploads/success/tip_watermelon.png" alt="Watermelon">
+                <h5>Watermelon</h5>
+                <p><strong>• </strong>92% water + (relatively low) fiber → helps soften stool and flush the system.</p>
+                <p><strong>• </strong>Seeds! may help prevent constipation as the gut bacteria can feed on the prebiotic content of watermelon seeds.</p>
+                <p><strong>• </strong>Fast digestion: start breaking down ~30-60 mins; fully processed and absorbed ~ 2-3 hours. </p>
+              </div>
+              <div class="tip-card">
+                <img src="../uploads/success/tip_banana.png" alt="Banana">
+                <h5>Banana</h5>
+                <ul class="tip-facts">
+                  <li><strong>• Green (unripe):</strong> High resistant starch, more fiber, but this can actually slow down digestion and make stool firmer. Better if you’re dealing with diarrhea...</li>
+                  <li><strong>• Yellow (ripe):</strong> Nutrient-rich, easy to digest, gentle on digestion.</li>
+                  <li><strong>• Brown (overripe):</strong> Soft and sweet, very easy to digest and most likely to help relieve constipation.</li>
+                </ul>
+              </div>
+              <div class="tip-card">
+                <img src="../uploads/success/tip_kimchi.png" alt="Kimchi">
+                <h5>Kimchi</h5>
+                <p>Fermented probiotics → support gut bacteria and regularity.</p>
+              </div>
+              <div class="tip-card">
+                <img src="../uploads/success/tip_acaibowl.png" alt="Kimchi">
+                <h5>Acai Bowl</h5>
+                <p>Fiber rich</p>
+              </div>
+              <div class="tip-card">
+                <img src="../uploads/success/tip_chiaseeds.png" alt="Kimchi">
+                <h5>Chia Seeds</h5>
+                <p>The key of Acai bowl that really facilitates digestion and relieve constipation.</p>
+              </div>
+            </div>
+          </section>
+    
+          <section id="drink">
+            <h4>Drink</h4>
+            <div class="tip-grid">
+              <div class="tip-card">
+                <img src="../uploads/success/tip_coffee.png" alt="Prune Juice">
+                <h5>Coffee</h5>
+                <p>tbd</p>
+              </div>
+              <div class="tip-card">
+                <img src="../uploads/success/tip_qingzhi.png" alt="Prune Juice">
+                <h5>Aojiru (青汁)</h5>
+                <p>Japanese vegetable drink most commonly made from kale or young barley grass</p>
+              </div>
+              <div class="tip-card">
+                <img src="../uploads/success/tip_prunejuice.png" alt="Prune Juice">
+                <h5>Prune Juice</h5>
+                <p>tbd</p>
+              </div>
+              <div class="tip-card">
+                <img src="../uploads/success/tip_bananalatte.png" alt="Banana Latte">
+                <h5>Banana Latte</h5>
+                <p>Criterion Cafe, Old Town Pasadena</p>
+              </div>
+              <div class="tip-card">
+                <img src="../uploads/success/tip_rosetea.png" alt="Banana Latte">
+                <h5>Rose Tea</h5>
+                <p> </p>
+              </div>
+              <div class="tip-card">
+                <img src="../uploads/success/tip_3catea.png" alt="Banana Latte">
+                <h5>Cucumber banana smoothie</h5>
+                <p>At 3Cat </p>
+              </div>
+            </div>
+          </section>
+    
+          <section id="gestures">
+            <h4>Gestures</h4>
+            <div class="tip-grid">
+              <div class="tip-card">
+                <img src="uploads/squat.jpg" alt="Squat Position">
+                <h5>Squat Posture</h5>
+                <p>Aligns colon naturally - less strain, smoother release.</p>
+              </div>
+              <div class="tip-card">
+                <img src="uploads/gravity.jpg" alt="Gravity Aid">
+                <h5>Gravity Assist</h5>
+                <p>Lean forward slightly - let gravity do the work.</p>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+    
+
+    <div id="community" class="tab-content">
+      <h3>Interactive Community</h3>
+      <h4>
+        We are building a global network, connecting everyone sharing similar interests or concerns. Our club members 
+        include: 
+      </h4>
+      <p>
+        Co-Founder/VVVVVIP: GH (LA), YF (LA)
+      </p>
+      <p>
+        Members: JJ (LA), RW (LA), DT (LA), CC (Madison), HZ(Madison), MZ (Durham), SS (LA), JC (LA), YS (LA), XY (LA), MM (LA), GM (LA), CW (Palo Alto), HS (LA)
+      </p>
+      <p>
+        Well, we will have to officially sign up once I set up the webpage~ Appreciate it! 
+      </p>
+
+      <p>
+        Did you succeed today? 
+      </p>
+      <p>
+        今日は成功しましたか? (Kyō wa seikō shimashita ka?)
+      </p>
+      <p>
+        오늘 성공했어요? (Oneul seonggong haesseoyo?)
+      </p>
+      <p>
+        今天你成功了吗？jin tian ni cheng gong le ma
+      </p>
+      <p>
+        As-tu réussi aujourd’hui ? 
+        (make these slogans in the background, flowing)
+      </p>
+      <p>
+        Այսոր հաջողություն հասելես?
+        Aysor hadgaghootyoon haseles?
+        (Eye-sor ha-dga-ghoo-tyoon hah-seh-les?)
+      </p>
+      <p>
+        क्या तुम आज कामयाब थे ?
+        (kya tum aaj kamiyab the) 
+      </p>
+    </div>
+
+    <div id="publicize" class="tab-content">
+      <h3>Publicize the Organization</h3>
+      <p>
+        design a stool that helps the pooping pose. 
+      </p>
+      <p>
+        Make cursor a poop
+      </p>
+      <p>
+        collaborate with the banana cafe, beat Erewhon's smoothie! 
+      </p>
+      <p>
+        Notes: drop big names, do school competitions by percentage, do global poop map, make a poop validation map 
+        (send help tips for under/over pooping schedules; also based on poop status, e.g., viscosity, connection with friends, check in with other friends).
+        (if failed multiple times, a smoothie coupon).  
+        !!! If one has a matched pooping schedule and shape, status, they get contacted / matched to the other one. 
+      </p>
+      <p>
+        Slogan! If you can talk about poop, you can talk about anything! 
+        No Joke, only serious business
+      </p>
+    </div>
+
+    <div id="events" class="tab-content">
+      <h3>Upcoming Events</h3>
+    </div>
+
+  </section>
+
+  <script>
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+    const welcome = document.getElementById('welcome');
+
+    tabButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Remove all active states
+        tabButtons.forEach(b => b.classList.remove('active'));
+        tabContents.forEach(tc => tc.classList.remove('active'));
+
+        // Activate clicked tab and hide welcome
+        btn.classList.add('active');
+        welcome.classList.remove('active');
+        document.getElementById(btn.dataset.tab).classList.add('active');
+      });
+    });
+    // Welcome title click returns to welcome tab
+    document.getElementById('welcome-link').addEventListener('click', (e) => {
+        e.preventDefault();
+        // Remove active states
+        tabButtons.forEach(b => b.classList.remove('active'));
+        tabContents.forEach(tc => tc.classList.remove('active'));
+        // Show welcome content
+        document.getElementById('welcome').classList.add('active');
+    });
+  </script>
+
+</body>
+</html>
